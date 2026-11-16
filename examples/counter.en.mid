@@ -1,0 +1,25 @@
+@flow
+module counter
+
+structure Counter
+	count as integer32
+	step as integer32 = 1
+
+protocol Incrementable
+	function inc takes self
+	function get takes self gives integer32
+
+implementation Counter as Incrementable
+	function inc takes self
+		self.count = self.count + self.step
+		emit changed
+	function get takes self gives integer32
+		return self.count
+
+rule when Counter.changed then
+	show self.get() as number
+
+function main
+	let c = Counter { count = 0 }
+	c.inc()
+	c.inc()

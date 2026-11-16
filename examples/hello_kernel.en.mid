@@ -1,0 +1,25 @@
+@kernel
+module hello_kernel
+	no standard
+	entry _start
+
+function putc takes c as unsigned8
+	let mask = 0
+	while mask == 0
+		let status = assembly input (0x3F8 + 5)
+		mask = status & 0x20
+	assembly
+		output (0x3F8, c)
+
+function puts takes s as *unsigned8
+	let c = *s
+	while c != 0
+		putc(c)
+		s = s + 1
+		c = *s
+
+function _start
+	puts("Hello, World!\n")
+	while true
+		assembly
+			halt

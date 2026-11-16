@@ -1,0 +1,15 @@
+[package]
+name = "midc"
+version = "0.3.0"
+edition = "2021"
+description = "Midād compiler — bootstrap in Rust"
+
+[[bin]]
+name = "midc"
+path = "src/main.rs"
+
+[lib]
+name = "midc"
+path = "src/lib.rs"
+
+[dependencies]
